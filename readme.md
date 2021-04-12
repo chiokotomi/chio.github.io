@@ -1,12 +1,23 @@
 # chio-blog-hexo-site 
 > study notes
 
-## local start
+## contents
+- tools
+- language
+- ...
+## local development
+dev in branch named : `dev_XXX` then merge into master
 ```
 npm run server
 ```
 visit `http://localhost:4000`
-## including
-- tools
-- language
-- ...
+
+## deploy
+
+change to master
+
+deploy branch : `gh-pages`
+
+```
+npm run deploy
+```
