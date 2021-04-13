@@ -16,8 +16,9 @@ visit `http://localhost:4000`
 
 change to master
 
+```
+hexo deploy
+```
+
 deploy branch : `gh-pages`
 
-```
-npm run deploy
-```
