@@ -1,5 +1,5 @@
 # chio-blog-hexo-site 
-> study notes
+> study-notes
 
 ## contents
 - tools
@@ -17,7 +17,9 @@ visit `http://localhost:4000`
 change to master
 
 ```
-hexo deploy
+npm run clean
+npm run build
+npm run deploy
 ```
 
 deploy branch : `gh-pages`
