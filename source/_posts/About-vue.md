@@ -51,6 +51,13 @@ tags: vue
 - TS 类型改进
 - Vite官方整合
 
+# Vue2
+
+### 不支持IE8
+
+实现`响应式系统`是使用`Object.defineProperty`来遍历`data`选项把所有的`property`转化为`getter/setter`
+
+`Object.defineProperty`是ES5中一个无法shim的特性，这就是Vue2不支持IE8的原因。
 
 # VUE相关设计概念
 
@@ -58,3 +65,22 @@ tags: vue
 > 响应式系统：修改数据模型(普通的js对象)时，视图会进行更新。这使得状态管理非常简单直接。
 
 ### Vue2实现
+
+> 针对Vue实例的`data`选项（一般都传入普通的js对象）
+
+Vue2遍历此对象的所有`property`，使用`Object.defineProperty`把所有的`property`转化为`getter/setter`。
+```js
+export function proxy (target: Object, sourceKey: string, key: string) {
+  sharedPropertyDefinition.get = function proxyGetter () {
+    return this[sourceKey][key]
+  }
+  sharedPropertyDefinition.set = function proxySetter (val) {
+    this[sourceKey][key] = val
+  }
+  Object.defineProperty(target, key, sharedPropertyDefinition)
+}
+```
+
+# Next To Learn
+
+- data 属性设定与作用
