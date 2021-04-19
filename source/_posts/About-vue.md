@@ -59,12 +59,11 @@ tags: vue
 
 `Object.defineProperty`是ES5中一个无法shim的特性，这就是Vue2不支持IE8的原因。
 
-# VUE相关设计概念
-
-## 非侵入性的响应式系统
+# VUE设计 - 非侵入性的响应式系统
 > 响应式系统：修改数据模型(普通的js对象)时，视图会进行更新。这使得状态管理非常简单直接。
 
-### Vue2实现
+## Vue2实现
+### 如何追踪变化
 
 > 针对Vue实例的`data`选项（一般都传入普通的js对象）
 
@@ -80,7 +79,45 @@ export function proxy (target: Object, sourceKey: string, key: string) {
   Object.defineProperty(target, key, sharedPropertyDefinition)
 }
 ```
+这些`getter/setter`对用户不可见，在内部可以让Vue能追踪依赖，在property被访问和修改时通知变更。
+每个组件实例对应一个`watcher`实例，会在组件渲染的过程中把接触过的数据`property`记录为依赖，之后当依赖项的`setter`触发时，会通知`watcher`，从而使他关联的组件重新渲染。
 
+![](vue-data-watcher-render.jpg)
+> 由于js的限制，vue不能检测数组与对象的变化，使用`Vue.set/vm.$set`方法更改`data`中对象或数组的值保证他们的响应性。
+
+> data根级响应式的property不可以动态添加，必须在初始化实例时声明所有的响应式property。主要目的时消除在依赖项跟踪系统中的一类边界情况。同时提高代码的可维护性，`data`对象就像组件状态的`结构(schema)`
+### 异步更新队列
+
+Vue 在更新 DOM 时是异步执行的。只要侦听到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个 watcher 被多次触发，只会被推入到队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作是非常重要的。然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。Vue 在内部对异步队列尝试使用原生的 `Promise.then`、`MutationObserver` 和 `setImmediate`，如果执行环境不支持，则会采用 `setTimeout(fn, 0)` 代替。
+`Vue,nextTick(callback)`回调函数将在DOM更新完成后被调用
+```js
+Vue.component('example', {
+  template: '<span>{{ message }}</span>',
+  data: function () {
+    return {
+      message: '未更新'
+    }
+  },
+  methods: {
+    updateMessage: function () {
+      this.message = '已更新'
+      console.log(this.$el.textContent) // => '未更新'
+      this.$nextTick(function () {
+        console.log(this.$el.textContent) // => '已更新'
+      })
+    }
+  }
+})
+// 或使用ES2017 async/await
+methods: {
+  updateMessage: async function () {
+    this.message = '已更新'
+    console.log(this.$el.textContent) // => '未更新'
+    await this.$nextTick()
+    console.log(this.$el.textContent) // => '已更新'
+  }
+}
+```
 # Next To Learn
 
 - data 属性设定与作用
