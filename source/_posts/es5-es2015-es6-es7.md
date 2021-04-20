@@ -1,7 +1,7 @@
 ---
 title: es5-es6-es7
 date: 2021-04-14 21:14:48
-tags:
+tags: es6
 ---
 
 # es6

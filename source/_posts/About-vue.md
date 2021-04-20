@@ -59,6 +59,11 @@ tags: vue
 
 `Object.defineProperty`是ES5中一个无法shim的特性，这就是Vue2不支持IE8的原因。
 
+# 版本发布规范
+
+
+>遵循[语义化版本控制](https://semver.org/lang/zh-CN/)
+
 # VUE设计 - 非侵入性的响应式系统
 > 响应式系统：修改数据模型(普通的js对象)时，视图会进行更新。这使得状态管理非常简单直接。
 
@@ -69,6 +74,7 @@ tags: vue
 
 Vue2遍历此对象的所有`property`，使用`Object.defineProperty`把所有的`property`转化为`getter/setter`。
 ```js
+// vue2代码
 export function proxy (target: Object, sourceKey: string, key: string) {
   sharedPropertyDefinition.get = function proxyGetter () {
     return this[sourceKey][key]
@@ -91,6 +97,7 @@ export function proxy (target: Object, sourceKey: string, key: string) {
 Vue 在更新 DOM 时是异步执行的。只要侦听到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据变更。如果同一个 watcher 被多次触发，只会被推入到队列中一次。这种在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作是非常重要的。然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。Vue 在内部对异步队列尝试使用原生的 `Promise.then`、`MutationObserver` 和 `setImmediate`，如果执行环境不支持，则会采用 `setTimeout(fn, 0)` 代替。
 `Vue,nextTick(callback)`回调函数将在DOM更新完成后被调用
 ```js
+// 使用方法
 Vue.component('example', {
   template: '<span>{{ message }}</span>',
   data: function () {
