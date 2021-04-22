@@ -133,7 +133,7 @@ math.add(2, 3);
 
 # UMD
 
-UMD是AMD和CommonJs的统一规范，支持两种规范，写一套代码，可用于多种场景。
+UMD（Universal Module Definition）是AMD和CommonJs的统一规范，支持两种规范，写一套代码，可用于多种场景。
 - 写法最复杂
 - 前后端通用
 - UMD更像是一种配置多个模块系统的模式
