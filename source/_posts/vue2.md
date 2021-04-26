@@ -101,6 +101,17 @@ methods: {
 }
 ```
 
+# 组件化应用构建
+
+组件的本质：一个拥有预定义选项的Vue实例
+大型应用中，将整个应用程序划分为组件，使开发更易管理。
+## Vue组件与自定义元素（custom elements）的关系
+- 自定义元素：[web组件（Web Components）规范](https://developer.mozilla.org/zh-CN/docs/Web/Web_Components)的一部分
+- Vue组件：语法参考了web组件规范（例如Slot API 与 `is` attribute）
 # 过渡效果系统
 
 Vue插入、更新、移除元素时自动应用过渡效果
+
+# 指令
+
+- `v-model` 
