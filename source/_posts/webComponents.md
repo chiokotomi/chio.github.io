@@ -74,9 +74,12 @@ Shadow DOM可以将一个隐藏的、独立的DOM附加到常规的DOM树中。�
 `open`表示可以通过页面内的js方法来获取Shadow DOM，如`Element.shadowRoot`
 `closed`不可以从外部获取Shadow DOM，如浏览器内置元素如`<video></video>`
 
+> 常规[DOM（文档对象模型）](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model/Introduction)
 # templates and slots
 
 ## templates
+
+模板可以复用相同的结构。
 
 ```js
 <template id="my-paragraph">
@@ -88,4 +91,34 @@ Shadow DOM可以将一个隐藏的、独立的DOM附加到常规的DOM树中。�
 let template = document.getElementById('my-paragraph');
 let templateContent = template.content;
 document.body.appendChild(templateContent);
+```
+## slots
+
+插槽能在单个实例中通过声明式的语法展示不同的文本。
+slots由`name`属性标识，并且在模板中定义占位符。在实例中使用slot标记时，占位符可以填充为所需的任何HTML标记片段。
+
+```js
+<html>
+    <head></head>
+    <body>
+        <template id="my-paragraph">
+            <p>
+                <slot name="my-text">
+                    My default text
+                </slot>
+            </p>
+        </template>
+
+        <my-paragraph>
+            <span slot="my-text">Let's have some different text</span>
+        </my-paragraph>
+
+        <my-paragraph>
+            <ul slot="my-text">
+                <li>list 1</li>
+                <li>list 2</li>
+            </ul>
+        </my-paragraph>
+    </body>
+</html>
 ```
