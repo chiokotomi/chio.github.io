@@ -1,6 +1,7 @@
 # chio-blog-hexo-site 
-> study-notes
-
+> study-notes 
+## online site
+https://chiokotomi.github.io/chio.github.io/
 ## contents
 - tools
 - language
