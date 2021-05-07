@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> vue3学习笔记 · Chio's Personal Website</title><meta name="description" content="vue3学习笔记 - Chio"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/chio.github.io/favicon.png"><link rel="stylesheet" href="/chio.github.io/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://chiokotomi.github.io/chio.github.io/atom.xml" title="Chio's Personal Website"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/chio.github.io/atom.xml" title="Chio's Personal Website" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/chio.github.io/" class="logo-link"><img src="/chio.github.io/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/chio.github.io/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/chio.github.io/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="https://weibo.com/u/2001366581" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/chiokotomi" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">vue3学习笔记</h1><div class="post-info">Apr 10, 2021</div><div class="post-content"><h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><ul>
+<li>vue3 比 vue2 加了什么功能</li>
+<li>vue 设计思想，实现了什么功能，怎么实现的</li>
+<li>vue 支持到的ie版本</li>
+<li>vue 生态其他库的作用是什么</li>
+<li>vue3跟typescript关系是什么，好用在哪里</li>
+<li>预渲染与服务端渲染如何实现的</li>
+</ul>
+<h1 id="Vue3"><a href="#Vue3" class="headerlink" title="Vue3"></a>Vue3</h1><h2 id="放弃支持IE11"><a href="#放弃支持IE11" class="headerlink" title="放弃支持IE11"></a>放弃支持IE11</h2><blockquote>
+<p>参考vue RFC <a target="_blank" rel="noopener" href="https://github.com/vuejs/rfcs/blob/ie11/active-rfcs/0000-vue3-ie11-support.md">proposal for dropping ie11 support in Vue3</a></p>
+</blockquote>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><ol>
+<li>浏览器和js的环境发生变化，越来越多的开发者开始使用现代语言特性</li>
+<li>微软通过投资Edge推动用户停止对IE的使用，同时在自己的<code>Microsoft 365</code>重大项目中放弃使用IE11</li>
+<li>WordPress放弃支持IE11</li>
+<li>IE11全球使用率跌破1%以下</li>
+</ol>
+<h3 id="成本"><a href="#成本" class="headerlink" title="成本"></a>成本</h3><h4 id="1-行为不一致"><a href="#1-行为不一致" class="headerlink" title="1. 行为不一致"></a>1. 行为不一致</h4><ul>
+<li><p>原因：<code>响应式系统的实现</code>在<code>vue2</code>中基于<code>ES5的getter/setter</code>，在<code>vue3</code>中基于<code>ES2015 Proxies</code>，更高性能更完整的响应式系统。ie11中无法<code>polyfill</code>这些特性。</p>
+</li>
+<li><p>好处： <code>vue3基于Proxy</code>的响应式系统提供了<code>近乎完整的</code>语言特性覆盖：可以检测到许多在ES5中不可行或不可能的操作，如<code>属性的添加/删除</code>、<code>数组索引和长度突变</code>以及<code>in操作符的检查等功能</code>。</p>
+</li>
+<li><p>支持方案：使vue3在ie11版本的开发构建中同时发布<code>Proxy</code>和<code>ES5</code>两种响应性版本。</p>
+</li>
+<li><p>结论： 理论可行，复杂度大，需要将两种实现混合在一起，可能导致<em><strong>开发和生产之间的行为差异</strong></em></p>
+</li>
+</ul>
+<h4 id="2-长期维护负担"><a href="#2-长期维护负担" class="headerlink" title="2. 长期维护负担"></a>2. 长期维护负担</h4><p>支持ie11就必须考虑整个代码库中使用的语言特性与为发布版本找到合适的polyfill编译策略。</p>
+<p>每一个不能在ie11中被polyfill的新特性都会带来新的行为警告</p>
+<h4 id="3-库作者的复杂性"><a href="#3-库作者的复杂性" class="headerlink" title="3. 库作者的复杂性"></a>3. 库作者的复杂性</h4><p>两个响应性实现也会不可避免的影响vue生态其他库作者开发，若决定支持IE11，在编写库时，需要时刻考虑ES5响应系统的一些缺陷。</p>
+<h2 id="新功能"><a href="#新功能" class="headerlink" title="新功能"></a>新功能</h2><ul>
+<li>composition API</li>
+<li><code>&lt;script setup&gt;</code> 与其他新的<code>单文件组件(SFC)</code>特性</li>
+<li>emits 选项</li>
+<li>TS 类型改进</li>
+<li>Vite官方整合</li>
+</ul>
+<h1 id="Next-To-Learn"><a href="#Next-To-Learn" class="headerlink" title="Next To Learn"></a>Next To Learn</h1><ul>
+<li>data 属性设定与作用</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/chio.github.io/2021/04/14/es5-es6-es7/" class="prev">PREV</a><a href="/chio.github.io/2021/04/09/to-learn-list/" class="next">NEXT</a></div><div class="copyright"><p>© 2020 - 2021 <a href="https://chiokotomi.github.io/chio.github.io">Chio</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
