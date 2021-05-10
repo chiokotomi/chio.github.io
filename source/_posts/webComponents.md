@@ -5,11 +5,12 @@ tags:
 ---
 
 **Web Components** 可以创建可复用的定制元素，包含三项主要技术。
+<!-- more -->
 1. **Custom elements （自定义元素）：**JS API，可以定义custom elements及其行为，在用户界面中按需求使用。
 2. **Shadow DOM （影子DOM）：**JS API，用于将封装的影子DOM树附加到元素（与主文档DOM分开呈现）并控制其关联功能。这样可以保持元素的功能私有，可以被脚本化和样式化，不会与文档的其他部分发生冲突。
 3. **HTML templates（HTML模板）：** `<template>`和`<slot>`元素可以编写不在页面中显示的标记模板，然后他们可以作为自定义元素结构的基础被多次复用。
 
-<!-- more -->
+
 
 > FF63+、Chrome、Opera支持，Safari支持部分web组件特性，Edge正在开发一个实现，ie不支持
 
