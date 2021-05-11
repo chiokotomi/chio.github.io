@@ -118,9 +118,6 @@ methods: {
   }
 }
 ```
-# 过渡效果系统
-
-Vue插入、更新、移除元素时自动应用过渡效果
 
 # Vue将模板编译成虚拟DOM渲染函数
 # 组件化应用构建
@@ -136,10 +133,118 @@ Vue插入、更新、移除元素时自动应用过渡效果
   - vue组件提供了自定义元素所不具备的一些功能，例如`跨组件数据流`、`自定义事件通信`、`构建工具集成`
 
 
-# Vue实例生命周期图示
+## Vue实例生命周期图示
 
 ![](lifecycle.png)
 
-# 父子组件单向数据流
+## 父子组件单向数据流
 
 所有的`prop`使得父子`prop`之间形成了一个`单向下行绑定`。以防止子组件意外更改父组件的状态，从而导致应用的数据流向难以理解。双向绑定会带来维护上的问题，因为子组件可以变更父组件，且在父组件和子组件都没有明显的变更来源
+
+## 过渡效果系统
+
+Vue插入、更新、移除元素时自动应用过渡效果
+
+# 可复用性&组合
+- mixin
+  ```js
+    let myMixin = {
+      created: function () {},
+      methods: {
+        hello: function() {}
+      }
+    };
+    let Component = Vue.extend({
+      mixins: [myMixin]
+    });
+    let component = new Component();
+  ```
+
+- 自定义指令`Vue.directive()`
+- 渲染函数`render`
+  ```js
+  Vue.component('xxx-xxx', {
+    render: function(createElement) {
+      return createElement(
+        'h' + this.level,
+        this.$slots.default
+      ),
+      props: {
+        level: {
+          type: Number,
+          required: true
+        }
+      }
+    }
+  });
+  ```
+  通过`babel插件@vue/babel-preset-jsx`可以使用jsx语法，接近于模板的语法上，Vue的模板实际上也是被编译成了渲染函数`Vue.compile`
+  ```js
+  new Vue({
+    el: '#demo',
+    render: function (h) {
+      return (
+        <AnchoredHeading level={1}>
+          <span>Hello</span> world!
+        </AnchoredHeading>
+      )
+    }
+  })
+  ```
+- 虚拟DOM：Vue通过建立一个虚拟DOM来追踪自己要如何改变真实DOM
+  `createElement`返回一个虚拟节点`virtual node/VNode`包含信息告诉Vue页面上需要渲染什么样的节点，包括及其子节点的信息描述。
+  
+ 
+# Vue插件
+
+插件通常用来为 Vue 添加全局功能，如`vue-loader`
+## 使用插件
+
+`Vue.use()`在调用`new Vue()`启动应用之前
+```js
+  Vue.use(MyPlugin)
+  new Vue({
+    // ...
+  })
+```
+
+# 规模化
+## 路由
+```js
+const NotFound = { template: '<p>Page not found</p>' }
+const Home = { template: '<p>home page</p>' }
+const About = { template: '<p>about page</p>' }
+
+const routes = {
+  '/': Home,
+  '/about': About
+}
+
+new Vue({
+  el: '#app',
+  data: {
+    currentRoute: window.location.pathname
+  },
+  computed: {
+    ViewComponent () {
+      return routes[this.currentRoute] || NotFound
+    }
+  },
+  render (h) { return h(this.ViewComponent) }
+})
+```
+
+## 状态管理
+类Flux架构，store模式，集中式状态管理，组件不允许直接变更属于 store 实例的 state，而应执行 action 来分发 (dispatch) 事件通知 store 去改变，这样能够记录所有 store 中发生的 state 变更，同时实现能做到记录变更、保存状态快照、历史回滚/时光旅行的先进的调试工具。
+![](./state.png)
+## 服务端渲染SSR
+将一个组件渲染为服务端的HTML字符串，直接发送到浏览器，再将静态标记“激活”为客户端上可以交互的应用程序
+使用SSR可以
+- 更好的SEO：搜索引擎爬虫工具可以直接查看完全渲染的页面
+- 更快的内容到达时间（time-to-content）
+### 基本用法
+`vue-server-renderer`
+
+## 预渲染Prerendering
+改善少数页面的SEO使用预渲染
+在构建时简单地生成针对特定路由的静态HTML文件
