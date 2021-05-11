@@ -17,14 +17,17 @@ OOP与FP是不同的编程风格，了解各自的优缺点结合使用
 - 多态：同一事物的多种形态，多个对象有相同的使用方法
     - 重写overriding：子类有与父类一样的方法名，但是有自己的逻辑，子类与父类的多态性
     - 重载overloading：一个类有多个一样的方法名，但是参数不同，一个类的多态性
+
 ## 优缺点
 - 优点：易维护、复用、扩展。可设计出低耦合、更灵活的系统。
+
 ## JS实现OOP
 在js中使用OOP有四种方式
 - 工场函数
 - Function constructor构造器函数
 - Object.create()
 - ES6 classes
+
 ### 工场函数
 创建接收参数返回对象的函数。
 ```js
@@ -54,6 +57,7 @@ let person = function (firstName, lastName) {
 let personC = person('erat', 'luctus');
 ```
 如上使用工场函数可以避免代码重复，但是因为每次使用`person`函数时，`getFullName`都被重复创建，使用Function constructor方式可以提高内存使用效率。
+
 ### Function constructor
 使用`new`关键词初始化的函数即为构造器函数，并且最好使用大写首字母
 ```js
@@ -70,6 +74,7 @@ let personB = new Person('felis','ullamcorper');
 personA.getFullName();
 ```
 使用构造器与prototype实现了代码复用，`personA`与`personB`两个实例有各自不同的firstName与lastName，但是在原型上有共同的函数`getFullName`，通过原型链使得构造器函数更高效的利用了内存。
+
 ### Object.create()
 `Object.create()`可以使用一个已经存在的对象作为一个新对象的原型
 ```js
@@ -107,7 +112,15 @@ class Person {
 
 函数式编程主张数据与行为分离。将代码分成不同的部分，可以保证每一个部分都能被很好的组织。简言之，应该传递数据给函数，函数操作后返回新对象。
 
-函数式编程的核心是`纯函数pure function`
+一个函数应该满足以下特点：
+1. 单任务：函数尽量的小执行单一的任务
+2. 纯函数：函数不应该有副作用，相同的输入有相同的输出
+3. 函数应该有返回`return statement`
+4. 函数应该是可组合的`compose-able`
+5. 函数应该是不变的`immutable`：函数应该返回一个数据的copy，而不应该改变原始数据
+6. 函数应该是可测的`predictable`
+
+
 ## 纯函数
 保证以下几点的是纯函数
 - 1.相同的输入，永远会得到相同的输出，无论函数被执行多少次
@@ -309,3 +322,47 @@ partiallyMultiplyBy5(4, 10) //200  // 此时执行时传入剩余参数
 缓存的一种特殊形式
 
 ## 组合compose与管道pipe
+
+`组合compose`是一种描述函数间关系的设计规则。`管道pipe`与组合类似，区别在于调用上。组合从右向左执行，管道从左向右执行。
+```js
+const multiplyWith3  = x => x * 3;
+const getAbsouleOfNum = x => Math.abs(x);
+// 正常实现给一个值乘3后取模
+let x = 15;
+let xAfterMultiply = multiplyWith3(x);
+let xAfterAbsoulte = getAbsouleOfNum(xAfterMultiply);
+
+// 通过组合的形式：安排两个函数的调用顺序
+const compose = (f, g) => data => f(g(data));
+const multiplyBy3andGetAbsolute = compose(multiplyWith3, getAbsouleOfNum);
+multiplyBy3andGetAbsolute(-15); //45
+
+// 通过管道的形式
+const pipe = (f, g) => data => g(f(data));
+const multiplyBy3andGetAbsolutePipe = pipe(multiplyWith3, getAbsouleOfNum);
+multiplyBy3andGetAbsolutePipe(-15);
+```
+
+## arity参数数量
+函数化编程建议使用更改少的函数参数（建议1-2个），以让函数更好用。
+
+# OOP vs FP
+
+OOP强调`data`与`operation`的封装，具有封装、继承、多态的主要特点。FP强调`data`与`operation`的分离，实现纯函数，避免副作用，通过函数组合实现更强的功能。
+## 共同性
+OOP与FP都是为了让我们的代码更可控的设计模式，代码可控意味着：
+- 易读性
+- 易扩展
+- 易维护
+- 内存高效：oop-继承，fp-闭包
+- DRY（don't repeat yourself）：避免代码重复
+## 不同点
+- FP 擅于处理在很多操作中修改数据；OOP 擅长处理在少操作中修改共同数据
+- FP 是无状态的，不会影响程序的其他状态；OOP是有状态的，会改变属性的状态
+- FP 有无副作用的纯函数；OOP因为修改自己的状态，所有有副作用
+- FP 是声明式的，专注于该完成什么；OOP是命令式的，专注于如何去做
+
+## 使用选择
+
+- 操作多，高性能是用FP
+- 角色对象多操作少的情况用OOP
