@@ -1,5 +1,5 @@
 ---
-title: es5-es6-es7
+title: ES6 Object.defineProperty
 date: 2021-04-14 21:14:48
 tags: es6
 ---

@@ -1,5 +1,5 @@
 ---
-title: react规模
+title: react核心概念与原理
 date: 2021-05-12 11:53:01
 tags:
 ---
@@ -90,15 +90,16 @@ function MyComponent() {
 state或props更新时，相同的`render()`方法返回不同的元素树，react需要判断如何高效的更新UI
 当对比两棵树时，React 首先比较两棵树的根节点。不同类型的根节点元素会有不同的形态。
 - 对比不同类型的元素
-  当根节点为不同类型的元素时，React 会拆卸原有的树并且建立起新的树，从 <Button> 变成 <div> 会触发一个完整的重建流程，当卸载一棵树时，对应的 DOM 节点也会被销毁。组件实例将执行 componentWillUnmount() 方法
+  当根节点为不同类型的元素时，React 会拆卸原有的树并且建立起新的树，从 `<Button>` 变成 `<div>` 会触发一个完整的重建流程，当卸载一棵树时，对应的 DOM 节点也会被销毁。组件实例将执行 `componentWillUnmount()` 方法
   
 - 对比同一类型的元素
   当对比两个相同类型的 React 元素时，React 会保留 DOM 节点，仅比对及更新有改变的属性。
-  ```js
-  <div className="before" title="stuff"></div>
 
-  <div className="after" title="stuff"></div>
+  ```js
+    <div className="before" title="stuff"></div>
+    <div className="after" title="stuff"></div>
   ```
+
   处理完当前节点之后，React 继续对子节点进行递归。
 
 - 对比同类型的组件元素
