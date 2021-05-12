@@ -1,5 +1,5 @@
 ---
-title: vue2学习笔记
+title: vue2与规模化
 date: 2021-04-22 21:24:52
 tags: vue2
 ---
@@ -243,8 +243,104 @@ new Vue({
 - 更好的SEO：搜索引擎爬虫工具可以直接查看完全渲染的页面
 - 更快的内容到达时间（time-to-content）
 ### 基本用法
-`vue-server-renderer`
+使用`vue-server-renderer`渲染一个Vue实例
+```js
+const renderer = require('vue-server-renderer').createRenderer({
+  template,
+});
 
+const context = {
+    title: 'vue ssr',
+    metas: `
+        <meta name="keyword" content="vue,ssr">
+        <meta name="description" content="vue srr demo">
+    `,
+};
+
+server.get('*', (req, res) => {
+  const app = new Vue({
+    data: {
+      url: req.url
+    },
+    template: `<div>访问的 URL 是： {{ url }}</div>`,
+  });
+
+  renderer
+  .renderToString(app, context, (err, html) => {
+    console.log(html);
+    if (err) {
+      res.status(500).end('Internal Server Error')
+      return;
+    }
+    res.end(html);
+  });
+})
+
+server.listen(8080);
+```
+### 通用代码
+> 运行在服务器与客户端的代码
+- 服务器上默认情况下禁用响应式数据
+- 生命周期只有`beforeCreate`与`created`会在服务端渲染过程中被调用，避免在期间产生有全局副作用的代码
+- 通用代码不接受特定平台的API，如`window`或`document`
+
+### 源码结构
+- 使用webpack对client与node端代码进行构建
+```js
+// 通用app.js
+import Vue from 'vue'
+import App from './App.vue'
+
+// 导出一个工厂函数，用于创建新的
+// 应用程序、router 和 store 实例
+export function createApp () {
+  const app = new Vue({
+    // 根实例简单的渲染应用程序组件。
+    render: h => h(App)
+  })
+  return { app }
+}
+
+
+// entry-client：将app挂载到dom上进行渲染执行
+import { createApp } from './app'
+
+const { app } = createApp()
+
+app.$mount('#app')
+
+
+// entry-server：ssr中直接调用app，后续再执行
+// 服务器端路由匹配 server-side route matching
+// 和 数据预取逻辑 data pre-fetching logic
+import { createApp } from './app'
+
+export default context => {
+  const { app } = createApp()
+  return app
+}
+```
+
+### 路由与代码分割
+- 路由
+- 惰性加载（懒加载）：减少初始渲染中下载的资源体积，改善大体积bundle的可交互时间（time-to-interactive）
+  ```js
+    import Foo from './Foo.vue'
+    // 改为
+    const Foo = () => import('./Foo.vue')
+  ```
+
+### 数据预取和状态
+![数据预取和状态基于vuex](https://ssr.vuejs.org/zh/guide/data.html)
+
+### 客户端激活
+
+ Vue 在浏览器端接管由服务端发送的静态 HTML，使其变为由 Vue 管理的动态 DOM 的过程。
+ ```js
+  <div id="app" data-server-rendered="true"></div>
+  // 强制使用应用程序的激活模式
+  app.$mount('#app', true)
+ ```
 ## 预渲染Prerendering
 改善少数页面的SEO使用预渲染
 在构建时简单地生成针对特定路由的静态HTML文件
