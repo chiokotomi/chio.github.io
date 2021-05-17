@@ -1,5 +1,5 @@
 ---
-title: vue2与规模化
+title: vue2的规模化
 date: 2021-04-22 21:24:52
 tags: vue2
 ---
