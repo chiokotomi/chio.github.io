@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> React源码学习 · Chio's Personal Website</title><meta name="description" content="React源码学习 - Chio"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/chio.github.io/favicon.png"><link rel="stylesheet" href="/chio.github.io/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://chiokotomi.github.io/chio.github.io/atom.xml" title="Chio's Personal Website"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/chio.github.io/atom.xml" title="Chio's Personal Website" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/chio.github.io/" class="logo-link"><img src="/chio.github.io/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/chio.github.io/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/chio.github.io/archives/" target="_self" class="nav-list-link">文章</a></li><li class="nav-list-item"><a href="https://weibo.com/u/2001366581" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/chiokotomi" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">React源码学习</h1><div class="post-info">May 22, 2021</div><div class="post-content"><h2 id="react学习分层"><a href="#react学习分层" class="headerlink" title="react学习分层"></a>react学习分层</h2><ul>
+<li><p><code>掌握术语、基本实现思路</code>：</p>
+<ul>
+<li>fiber架构、虚拟dom、diff算法(协调reconciliation)</li>
+<li>了解视图更新的实现思路</li>
+<li>参考<a target="_blank" rel="noopener" href="https://pomb.us/build-your-own-react/">build-your-own-react</a></li>
+</ul>
+</li>
+<li><p><code>掌握整体工作流程、局部细节</code>: </p>
+<ul>
+<li>源码整体工作流程：<ul>
+<li>schedule调度模块 - scheduler</li>
+<li>render协调模块 - reconciler - 与视图dom无关，仅操作fiber</li>
+<li>commit渲染模块 - renderer - 仅此阶段与视图平台相关涉及ReactDOM、ReactNative、ReactArt</li>
+</ul>
+</li>
+<li>局部细节：<ul>
+<li>diff算法</li>
+<li>hooks</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>掌握关键流程的细节</code>：</p>
+<ul>
+<li><p>view视图 - 软件应用</p>
+<p>生命周期函数         -&gt; 符合默认认知的在hooks上一层的抽象</p>
+<p>hooks    - 操作系统</p>
+<p>React底层运行流程  - 硬件</p>
+</li>
+<li><p>scheduler调度器模块：优先级队列、小顶堆数据结构、浏览器渲染原理、message channel API、宏任务与微任务的区别、event loop参考<a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s/m3a6vjp8-c9a2EYj0cDMmg">深入核心，详解事件循环机制</a></p>
+</li>
+<li><p>协调模块：dfs深度优先遍历、update单向（有环）链表数据结构、lane模型、二进制掩码、fiber并发模型(原生提供的generator)</p>
+</li>
+</ul>
+</li>
+<li><p><code>掌握思想</code>：</p>
+<ul>
+<li>hooks之前classComponent面向对象、functionComponent函数式编程</li>
+<li>state到view的变化，纯函数更好表达，编译时优化更有优势</li>
+<li>代数效应理念处理副作用 hooks实现</li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/chio.github.io/2021/05/23/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/" class="prev">PREV</a><a href="/chio.github.io/2021/05/12/react%E8%A7%84%E6%A8%A1/" class="next">NEXT</a></div><div class="copyright"><p>© 2020 - 2021 <a href="https://chiokotomi.github.io/chio.github.io">Chio</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>

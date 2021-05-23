@@ -6,7 +6,7 @@
   <link href="https://chiokotomi.github.io/chio.github.io/atom.xml" rel="self"/>
   
   <link href="https://chiokotomi.github.io/chio.github.io/"/>
-  <updated>2021-05-12T13:22:57.606Z</updated>
+  <updated>2021-05-23T13:22:20.412Z</updated>
   <id>https://chiokotomi.github.io/chio.github.io/</id>
   
   <author>
@@ -15,6 +15,56 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>事件循环机制Event Loop</title>
+    <link href="https://chiokotomi.github.io/chio.github.io/2021/05/23/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/"/>
+    <id>https://chiokotomi.github.io/chio.github.io/2021/05/23/%E4%BA%8B%E4%BB%B6%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6/</id>
+    <published>2021-05-23T10:32:05.000Z</published>
+    <updated>2021-05-23T13:22:20.412Z</updated>
+    
+    <content type="html"><![CDATA[<p>事件循环机制从整体上告诉了我们js代码的执行顺序。</p><blockquote><p>已备知识：</p></blockquote><ul><li>执行上下文</li><li>函数调用栈</li><li>队列数据结构</li><li>Promise</li></ul><p>js的主要特点：单线程，拥有唯一的一个事件循环。<br>js执行过程中，靠<code>函数调用栈</code>来搞定函数的执行顺序，靠<code>任务队列(task queue)</code>来搞定另外一些代码的执行。</p><ul><li>一个线程中，事件循环是唯一的，任务队列是多个的</li><li>任务队列分为：<code>宏任务</code>与<code>微任务</code></li><li><code>宏任务</code>包括：script整体代码、setTimeout、setInterval、setImmediate、I/O、UI rendering</li><li><code>微任务</code>包括：process.nextTick、promise、MutationObserver</li><li>setTimeout/promise等称之为任务源，由他们指定的具体执行任务会进入任务队列。</li><li>不同任务源的任务会进入到不同的任务队列，setTimeout与setInterval是同源的。</li><li><code>Promise</code>构造函数中的第一个参数（函数）是在new时立即执行的，.then会被分发到微任务队列里</li><li>宏任务与微任务都是借助函数调用栈来完成</li><li>事件循环的顺序：<ul><li>从script整体代码开始第一次循环，全局上下文进入函数调用栈，直到调用栈清空</li><li>开始执行所有的<code>微任务</code>，执行完毕后</li><li>循环从<code>宏任务</code>开始，找到其中一个任务队列执行完毕</li><li>再执行所有的<code>微任务</code>，进入循环：<code>所有微任务</code>-<code>任一宏任务队列</code></li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;事件循环机制从整体上告诉了我们js代码的执行顺序。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;已备知识：&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;执行上下文&lt;/li&gt;
+&lt;li&gt;函数调用栈&lt;/li&gt;
+&lt;li&gt;队列数据结构&lt;/li&gt;
+&lt;li&gt;Promise&lt;/li&gt;</summary>
+      
+    
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>React源码学习</title>
+    <link href="https://chiokotomi.github.io/chio.github.io/2021/05/22/react/"/>
+    <id>https://chiokotomi.github.io/chio.github.io/2021/05/22/react/</id>
+    <published>2021-05-22T13:42:05.000Z</published>
+    <updated>2021-05-23T01:21:55.406Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="react学习分层"><a href="#react学习分层" class="headerlink" title="react学习分层"></a>react学习分层</h2><ul><li><p><code>掌握术语、基本实现思路</code>：</p><ul><li>fiber架构、虚拟dom、diff算法(协调reconciliation)</li><li>了解视图更新的实现思路</li><li>参考<a href="https://pomb.us/build-your-own-react/">build-your-own-react</a></li></ul></li><li><p><code>掌握整体工作流程、局部细节</code>: </p><ul><li>源码整体工作流程：<ul><li>schedule调度模块 - scheduler</li><li>render协调模块 - reconciler - 与视图dom无关，仅操作fiber</li><li>commit渲染模块 - renderer - 仅此阶段与视图平台相关涉及ReactDOM、ReactNative、ReactArt</li></ul></li><li>局部细节：<ul><li>diff算法</li><li>hooks</li></ul></li></ul></li><li><p><code>掌握关键流程的细节</code>：</p><ul><li><p>view视图 - 软件应用</p><p>生命周期函数         -&gt; 符合默认认知的在hooks上一层的抽象</p><p>hooks    - 操作系统</p><p>React底层运行流程  - 硬件</p></li><li><p>scheduler调度器模块：优先级队列、小顶堆数据结构、浏览器渲染原理、message channel API、宏任务与微任务的区别、event loop参考<a href="https://mp.weixin.qq.com/s/m3a6vjp8-c9a2EYj0cDMmg">深入核心，详解事件循环机制</a></p></li><li><p>协调模块：dfs深度优先遍历、update单向（有环）链表数据结构、lane模型、二进制掩码、fiber并发模型(原生提供的generator)</p></li></ul></li><li><p><code>掌握思想</code>：</p><ul><li>hooks之前classComponent面向对象、functionComponent函数式编程</li><li>state到view的变化，纯函数更好表达，编译时优化更有优势</li><li>代数效应理念处理副作用 hooks实现</li></ul></li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;react学习分层&quot;&gt;&lt;a href=&quot;#react学习分层&quot; class=&quot;headerlink&quot; title=&quot;react学习分层&quot;&gt;&lt;/a&gt;react学习分层&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;掌握术语、基本实现思路&lt;/code&gt;：&lt;/p&gt;
+&lt;ul</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>react核心概念与原理</title>

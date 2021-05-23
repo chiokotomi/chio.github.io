@@ -1,0 +1,30 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 事件循环机制Event Loop · Chio's Personal Website</title><meta name="description" content="事件循环机制Event Loop - Chio"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/chio.github.io/favicon.png"><link rel="stylesheet" href="/chio.github.io/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://chiokotomi.github.io/chio.github.io/atom.xml" title="Chio's Personal Website"><meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/chio.github.io/atom.xml" title="Chio's Personal Website" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/chio.github.io/" class="logo-link"><img src="/chio.github.io/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/chio.github.io/" target="_self" class="nav-list-link">首页</a></li><li class="nav-list-item"><a href="/chio.github.io/archives/" target="_self" class="nav-list-link">文章</a></li><li class="nav-list-item"><a href="https://weibo.com/u/2001366581" target="_blank" class="nav-list-link">WEIBO</a></li><li class="nav-list-item"><a href="https://github.com/chiokotomi" target="_blank" class="nav-list-link">GITHUB</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">事件循环机制Event Loop</h1><div class="post-info">May 23, 2021</div><div class="post-content"><p>事件循环机制从整体上告诉了我们js代码的执行顺序。</p>
+<blockquote>
+<p>已备知识：</p>
+</blockquote>
+<ul>
+<li>执行上下文</li>
+<li>函数调用栈</li>
+<li>队列数据结构</li>
+<li>Promise</li>
+</ul>
+<p>js的主要特点：单线程，拥有唯一的一个事件循环。<br>js执行过程中，靠<code>函数调用栈</code>来搞定函数的执行顺序，靠<code>任务队列(task queue)</code>来搞定另外一些代码的执行。</p>
+<ul>
+<li>一个线程中，事件循环是唯一的，任务队列是多个的</li>
+<li>任务队列分为：<code>宏任务</code>与<code>微任务</code></li>
+<li><code>宏任务</code>包括：script整体代码、setTimeout、setInterval、setImmediate、I/O、UI rendering</li>
+<li><code>微任务</code>包括：process.nextTick、promise、MutationObserver</li>
+<li>setTimeout/promise等称之为任务源，由他们指定的具体执行任务会进入任务队列。</li>
+<li>不同任务源的任务会进入到不同的任务队列，setTimeout与setInterval是同源的。</li>
+<li><code>Promise</code>构造函数中的第一个参数（函数）是在new时立即执行的，.then会被分发到微任务队列里</li>
+<li>宏任务与微任务都是借助函数调用栈来完成</li>
+<li>事件循环的顺序：<ul>
+<li>从script整体代码开始第一次循环，全局上下文进入函数调用栈，直到调用栈清空</li>
+<li>开始执行所有的<code>微任务</code>，执行完毕后</li>
+<li>循环从<code>宏任务</code>开始，找到其中一个任务队列执行完毕</li>
+<li>再执行所有的<code>微任务</code>，进入循环：<code>所有微任务</code>-<code>任一宏任务队列</code></li>
+</ul>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/chio.github.io/2021/05/22/react/" class="next">NEXT</a></div><div class="copyright"><p>© 2020 - 2021 <a href="https://chiokotomi.github.io/chio.github.io">Chio</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
