@@ -137,7 +137,9 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/should-component-update.png) 组件只有当 props.color 或者 state.count 的值改变才需要更新时，你可以使用 shouldComponentUpdate 来进行检查：
+![](../.gitbook/assets/should-component-update.png)
+
+组件只有当 props.color 或者 state.count 的值改变才需要更新时，你可以使用 shouldComponentUpdate 来进行检查：
 
 ```javascript
 class CounterButton extends React.Component {

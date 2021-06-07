@@ -216,15 +216,21 @@ console.log(obj.accessTheData());
 
 ## 原型继承
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/1.png) 变量`a`没有`concat`方法，从原型继承了`concat`方法，`a.__proto__`属性指向`Array`
+  
+
+![](../.gitbook/assets/1.png)
+
+变量`a`没有`concat`方法，从原型继承了`concat`方法，`a.__proto__`属性指向`Array`
 
 * 原型链
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/2.png) `a.toString()`方法不是变量`a`的方法，于是js引擎查找`a.__proto__`即`Array.prototype`，`Array`也没有该方法，于是继续查找`a.__proto__.__proto__`直到最后返回。
+![](../.gitbook/assets/2.png)
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/3.png)
+`a.toString()`方法不是变量`a`的方法，于是js引擎查找`a.__proto__`即`Array.prototype`，`Array`也没有该方法，于是继续查找`a.__proto__.__proto__`直到最后返回。
+
+![](../.gitbook/assets/3.png)
 
 * 检查属性是否属于对象本身而非其原型链中：`hasOwnProperty`
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/4.png)
+![](../.gitbook/assets/4.png)
 

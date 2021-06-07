@@ -142,7 +142,7 @@ methods: {
 
 ### Vue实例生命周期图示
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/lifecycle.png)
+![](../.gitbook/assets/lifecycle.png)
 
 ### 父子组件单向数据流
 
@@ -253,7 +253,11 @@ new Vue({
 
 ### 状态管理
 
-类Flux架构，store模式，集中式状态管理，组件不允许直接变更属于 store 实例的 state，而应执行 action 来分发 \(dispatch\) 事件通知 store 去改变，这样能够记录所有 store 中发生的 state 变更，同时实现能做到记录变更、保存状态快照、历史回滚/时光旅行的先进的调试工具。 ![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/state.png)
+类Flux架构，store模式，集中式状态管理，组件不允许直接变更属于 store 实例的 state，而应执行 action 来分发 \(dispatch\) 事件通知 store 去改变，这样能够记录所有 store 中发生的 state 变更，同时实现能做到记录变更、保存状态快照、历史回滚/时光旅行的先进的调试工具。
+
+  
+
+![](../.gitbook/assets/state.png)
 
 ### 服务端渲染SSR
 

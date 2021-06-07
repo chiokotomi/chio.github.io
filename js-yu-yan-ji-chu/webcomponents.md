@@ -63,7 +63,7 @@ customElements.define('expanding-list', ExpandingList, {extends: 'ul'});
 
 Shadow DOM可以将一个隐藏的、独立的DOM附加到常规的DOM树中。它以shadow root节点为起始根节点，在根节点的下方，可以是任意元素，和普通的DOM元素一样。
 
-![](https://github.com/chiokotomi/chio.github.io/tree/b4e116dc9c9adbc8bc993fac2331f186d154f161/source/_posts/shadow-dom.png)
+![](../.gitbook/assets/shadow-dom.png)
 
 * **Shadow host:** 一个常规的DOM节点，Shadow DOM会被附加到这个节点上
 * **Shadow tree:** Shadow DOM内部的DOM树
