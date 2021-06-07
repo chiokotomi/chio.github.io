@@ -2,10 +2,9 @@
 
 ## Online Site
 
-https://kuroneko-kotomi.gitbook.io/chio-s-note/
-[https://chiokotomi.github.io/chio.github.io/](https://chiokotomi.github.io/chio.github.io/)
+[https://kuroneko-kotomi.gitbook.io/chio-s-note/](https://kuroneko-kotomi.gitbook.io/chio-s-note/) 
 
-## Deploy
+## ~~Deploy~~
 
-branch: `gh-pages`
+~~branch:   gh-pages~~
 
