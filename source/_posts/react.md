@@ -33,3 +33,39 @@ tags:
     - state到view的变化，纯函数更好表达，编译时优化更有优势
     - 代数效应理念处理副作用 hooks实现
 
+## React理念
+
+构建快速响应的大型web应用，解决两个主要瓶颈
+- CPU瓶颈：计算量大、操作多、设备性能低时的卡顿
+- IO瓶颈：网络请求数据等待，导致下一步不能快速响应
+
+### CPU瓶颈
+
+- 主流浏览器刷新频率为60HZ，1000ms/60HZ，16.6ms刷新一次。
+
+- JS线程、JS操作DOM、GUI渲染线程 互斥
+
+  JS脚本、样式布局  、样式绘制   不能同时执行
+
+- React解决方案：将`同步更新`变为`可中断的异步更新`
+    - `时间切片time slice`： 将长任务拆分到每一帧中。每一帧预留一些时间（5ms）react来更新组件，剩下的时间交还给浏览器渲染UI。
+    - `Concurrent Mode`：
+        ```js
+        ReactDOM.render(<App/>, rootEl);
+        ReactDOM.unstable_createRoot(rootEl).render(<App />)
+        ```
+
+### IO瓶颈
+
+在`网络延迟`存在的客观情况下，减少用户的感知。
+- `Suspense`实现与配套的`hook-useDeferedValue`
+
+## React16新架构
+
+- react15中协调器`reconciler`使用递归来创建虚拟DOM，不能中断，占用多时间
+- react16为了改为`异步可中断更新`，采用了`Fiber架构`
+
+## Fiber架构
+
+- 静态数据包含：对应的React element的组件的类型、DOM节点信息等
+- 动态工作单元包含：本次更新中组件改变的状态、要执行的工作（被删除/被插入页面中/被更新），调度优先级相关的信息
