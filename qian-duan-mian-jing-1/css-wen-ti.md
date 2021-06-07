@@ -36,7 +36,10 @@
 
     `align-self`（单独设置对齐方式）
 
-    **Q2 - 常见页面布局\(layout\)实现**
+    \*\*\*\*
+
+## **Q2 - 常见页面布局\(layout\)实现**
+
 * 传统解决方案：依赖`display`+`position`+`float`来实现，特殊布局（垂直居中）不容易实现
 * flex布局： 实现二列布局、三列布局等、`flex: 1`
 
@@ -84,7 +87,7 @@
     }
   ```
 
-  **Q4 - position五种取值**
+## Q4 - position五种取值
 
 * static： 正常布局，top/left/bottom/right/z-index无效
 * relativ: 相对自己，原本的自己还在文档流中

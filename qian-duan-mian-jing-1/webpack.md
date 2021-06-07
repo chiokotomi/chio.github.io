@@ -8,6 +8,7 @@
   * 使用@babel/preset-env预设编译环境，使用@babel/core.transformFromAst转译代码，适配所有浏览器
   * 对依赖模块进行以上分析，形成依赖关系网
 * 打包流程
+
   * 初始化webpack.config.js
   * loader解析
     * rules规则优化，指定include与exclude
@@ -19,7 +20,12 @@
       * resolve.extension
   * 打包生成chunk
 
-    **Q2 - 优化**
+    \*\*\*\*
+
+  \*\*\*\*
+
+## **Q2 - 优化**
+
 * 优化分析
   * speed-measure-webpack-plugin 速度分析
   * webpack-bundle-analyzer 分析包大小

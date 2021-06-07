@@ -146,7 +146,7 @@
   component: (resolve) => require.ensure([], () => resolve(require('@/components/home')), 'home')
   ```
 
-### Q15 - vue-router的query与param的区别
+### Q6 - vue-router的query与param的区别
 
 * query要用path来引入，params要用name来引入
 * 接收参数都是类似的，分别是`this.route.query.id`和`this. route.query.id`和`this.route.query.id`和`this.route.params.id`
@@ -154,7 +154,7 @@
 
 ## Vuex
 
-### 作用
+### Q1 - 作用
 
 * vue的状态管理插件
 * 基本元素
@@ -195,7 +195,7 @@
   }
   ```
 
-### Vuex 插件
+### Q2 - Vuex 插件
 
 ```javascript
 // 定义插件
