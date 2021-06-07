@@ -1,11 +1,8 @@
-
 # Chio's Note
 
 ## Online Site
 
-https://chiokotomi.github.io/chio.github.io/
-
-
+[https://chiokotomi.github.io/chio.github.io/](https://chiokotomi.github.io/chio.github.io/)
 
 ## Deploy
 

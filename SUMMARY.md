@@ -1,11 +1,11 @@
 # Table of contents
 
 * [Chio's Note](README.md)
-* [js语言基础](_posts/README.md)
-  * [webComponents](_posts/webcomponents.md)
-  * [es6](_posts/es6-object.defineproperty.md)
-  * [作用域与闭包](_posts/js-yu-yan-ji-chu-yi.md)
-  * [事件循环机制](_posts/shi-jian-xun-huan-ji-zhi.md)
+* [js语言基础](js-yu-yan-ji-chu/README.md)
+  * [webComponents](js-yu-yan-ji-chu/webcomponents.md)
+  * [es6](js-yu-yan-ji-chu/es6-object.defineproperty.md)
+  * [作用域与闭包](js-yu-yan-ji-chu/js-yu-yan-ji-chu-yi.md)
+  * [事件循环机制](js-yu-yan-ji-chu/shi-jian-xun-huan-ji-zhi.md)
 * [Vue](vue/README.md)
   * [vue2的规模化](vue/vue2-de-gui-mo-hua.md)
   * [vue3](vue/vue3.md)
